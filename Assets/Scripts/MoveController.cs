@@ -5,41 +5,48 @@ using UnityEngine.UI;
 
 public class MoveController : MonoBehaviour
 {
-    public float speedMove = 10000f;
-    public float speedJump = 50f;
-    public Text TextLabel;
-    private GameObject textGameObject;
+    public float speed = 100f;
+    
+    public float jump = 1f;
+    public float zPOS;
+    public float yPOS;
+    public float xPOS;
 
+    // Use this for initialization
     void Start()
     {
-        textGameObject = new GameObject("myTextGO");
-        textGameObject.transform.SetParent(this.transform);
-        textGameObject.transform.localPosition = Vector3.zero;
+        speed = 7f;
     }
 
-    void FixedUpdate()
-    {
-        float moveHorizontal = -Input.GetAxis("Horizontal");
-        float moveVertical = -Input.GetAxis("Vertical");
-        // Debug.Log("MoveController::FixedUpdate(); -- moveHorizontal:" + moveHorizontal);
-        // Debug.Log("MoveController::LateUpdate(); -- moveVertical:" + moveVertical);
-        Vector3 movement = new Vector3(moveHorizontal * speedMove, 0.0f, moveVertical * speedMove);
-        GetComponent<Rigidbody>().AddForce(movement * Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Vector3 jump = new Vector3(0.0f, 100.0f * speedJump, 0.0f);
-            GetComponent<Rigidbody>().AddForce(jump);
-        }
-    }
-
+    // Update is called once per frame
     void Update()
     {
-        Vector3 namePose = Camera.main.WorldToScreenPoint(textGameObject.transform.position);
-        TextLabel.transform.position = namePose;
+        //float moveHORIZONTAL = Input.GetAxis("Horizontal");
+        //float moveVertical = Input.GetAxis("Vertical");
+        Vector3 movement = new Vector3(xPOS, yPOS, transform.position.z);
+        if (Input.GetKey(KeyCode.A))
+        {
+            xPOS = xPOS -= speed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            xPOS = xPOS += speed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.W))
+        {
+            zPOS = zPOS += speed * Time.deltaTime;
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            zPOS = zPOS -= speed * Time.deltaTime;
+        }
+                if (Input.GetKeyDown(KeyCode.Space))
+        {
+            yPOS = yPOS += jump * Time.deltaTime;
+        }
 
-        TextLabel.text = transform.position + "";
-        // textGameObject.GetComponent<Text>().text = transform.position + "";
-        // Debug.Log("MoveController::Update(); -- text:" + gameObject.GetComponentInChildren<Text>().text);
+        //zPOS += speed * Time.deltaTime;
+
+        transform.position = new Vector3(xPOS, yPOS, zPOS);
     }
 }
