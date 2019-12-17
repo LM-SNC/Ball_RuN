@@ -7,6 +7,7 @@ public class SpawnGrove : MonoBehaviour
     // Start is called before the first frame update
     public GameObject spawnpoint;
     public GameObject spawnobject;
+    
     public float zPOS;
     void Start()
     {
@@ -19,7 +20,8 @@ public class SpawnGrove : MonoBehaviour
         zPOS +=20f;
          Vector3 movement = new Vector3(transform.position.x, transform.position.y, zPOS);
         //if(){
-            Instantiate(spawnobject,spawnpoint.transform.position = new Vector3(transform.position.x, transform.position.y, zPOS) ,Quaternion.identity);
+           // Instantiate(spawnobject,spawnpoint.transform.position = new Vector3(transform.position.x, transform.position.y, zPOS) ,Quaternion.identity);
+            
       //  }
         
     }
